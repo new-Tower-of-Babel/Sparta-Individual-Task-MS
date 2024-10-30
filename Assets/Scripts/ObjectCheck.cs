@@ -46,7 +46,6 @@ public class ObjectCheck : MonoBehaviour
             currentInteractable = null;
             if (promptText != null)
             {
-                Debug.Log("2");
                 promptText.gameObject.SetActive(false);
             }
         }

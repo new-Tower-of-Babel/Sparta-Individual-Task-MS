@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 currentMovementInput;  // 인풋 시스템과 연결되어 값을 받아오는 변수
     private Vector2 mouseDelta;  // 마우스 델타 값
     private float camCurXRot;  // 카메라의 현재 X 회전 값
-    private Rigidbody _rigidbody;
+    public Rigidbody _rigidbody;
 
     private void Awake()
     {
