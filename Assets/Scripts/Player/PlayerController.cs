@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;  // 이동 속도
+    [SerializeField] private float boostSpeed = 10f; //부스트 속도
+    [SerializeField] private float boostDuration = 10f; //부스트 지속시간
     [SerializeField] private float jumpPower = 5f;  // 점프 파워
     [SerializeField] private LayerMask groundLayerMask;  // 바닥 판정을 위한 레이어 마스크
 
@@ -20,6 +22,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 currentMovementInput;  // 인풋 시스템과 연결되어 값을 받아오는 변수
     private Vector2 mouseDelta;  // 마우스 델타 값
     private float camCurXRot;  // 카메라의 현재 X 회전 값
+    private float currentSpeed; // 부스트인지 기본인지에 따른 속도값입력
+    private bool isBoosted = false; //부스트상태인지 아닌지 판단
     public Rigidbody _rigidbody;
 
     private void Awake()
@@ -39,6 +43,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;  // 마우스를 게임 중앙 좌표에 고정시키고 마우스 커서가 보이지 않음
+        currentSpeed = moveSpeed;
     }
 
     private void FixedUpdate()
@@ -57,7 +62,7 @@ public class PlayerController : MonoBehaviour
     void Move()
     {
         Vector3 direction = (transform.forward * currentMovementInput.y + transform.right * currentMovementInput.x).normalized;
-        Vector3 velocity = direction * moveSpeed;
+        Vector3 velocity = direction * currentSpeed;
         velocity.y = _rigidbody.velocity.y;  // Y축 속도 유지
         _rigidbody.velocity = velocity;
     }
@@ -138,5 +143,19 @@ public class PlayerController : MonoBehaviour
         {
             Gizmos.DrawRay(origin + Vector3.up * 0.01f, Vector3.down * distance);
         }
+    }
+    public void ActiveBoost()
+    {
+        StartCoroutine(SpeedBoostCoroutine());
+    }
+    private IEnumerator SpeedBoostCoroutine()
+    {
+        isBoosted = true;
+        currentSpeed = boostSpeed;
+
+        yield return new WaitForSeconds(boostDuration);
+
+        currentSpeed = moveSpeed;
+        isBoosted = false;
     }
 }

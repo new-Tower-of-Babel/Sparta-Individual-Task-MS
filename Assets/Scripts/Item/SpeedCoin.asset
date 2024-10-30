@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f9e8711ff77d3b4f98463ab4cccf172, type: 3}
   m_Name: SpeedCoin
   m_EditorClassIdentifier: 
-  itemName: 
-  description: 
+  itemName: SpeedCoin
+  description: "\uC0AC\uC6A9\uD558\uBA74 \uC18D\uB3C4\uAC00 \uC62C\uB77C\uAC00\uB294
+    \uCF54\uC778"
